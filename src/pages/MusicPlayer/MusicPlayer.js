@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import {
   Animated,
   View,
@@ -23,40 +23,64 @@ import {
 const {width} = Dimensions.get('screen');
 var Sound = require('react-native-sound');
 
+Sound.setCategory('Playback');
+
+var sound = new Sound(MUSIC_DATA[0].file, Sound.MAIN_BUNDLE);
+
 const MusicPlayer = () => {
   const [isPaused, setIsPaused] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(-1);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const flatlistRef = useRef();
 
-  useEffect(() => {
-    // Enable playback in silence mode
-    Sound.setCategory('Playback');
-
-    // Load the sound file 'whoosh.mp3' from the app bundle
-    // See notes below about preloading sounds within initialization code below.
-    var whoosh = new Sound('whoosh.mp3', Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        console.log('failed to load the sound', error);
-        return;
+  const onViewableItemsChanged = useCallback(
+    ({_, changed}) => {
+      if (changed[0]?.isViewable) {
+        sound.release();
+        setIsPaused(true);
+        setCurrentIndex(changed[0]?.index);
+        sound = new Sound(
+          MUSIC_DATA[changed[0]?.index].file,
+          Sound.MAIN_BUNDLE,
+          error => {
+            if (error) {
+              console.log({error});
+            } else {
+              sound.play(success => {
+                setIsPaused(false);
+                sound.release();
+              });
+            }
+          },
+        );
       }
-      // loaded successfully
-      console.log(
-        'duration in seconds: ' +
-          whoosh.getDuration() +
-          'number of channels: ' +
-          whoosh.getNumberOfChannels(),
-      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
-      // Play the sound with an onEnd callback
-      whoosh.play(success => {
-        if (success) {
-          console.log('successfully finished playing');
-        } else {
-          console.log('playback failed due to audio decoding errors');
-        }
-      });
+  const playPause = () => {
+    setIsPaused(value => {
+      if (!value) {
+        sound.play(success => {
+          if (success) {
+            console.log('successfully finished playing');
+          } else {
+            console.log('playback failed due to audio decoding errors');
+          }
+        });
+      } else {
+        sound.pause();
+      }
+      return !value;
     });
+  };
+
+  useEffect(() => {
+    sound.setVolume(1);
+    return () => {
+      sound.release();
+    };
   }, []);
 
   return (
@@ -95,6 +119,12 @@ const MusicPlayer = () => {
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {useNativeDriver: true},
           )}
+          viewabilityConfig={{
+            waitForInteraction: false,
+            itemVisiblePercentThreshold: 100,
+            minimumViewTime: 500, //In milliseconds
+          }}
+          onViewableItemsChanged={onViewableItemsChanged}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(_, index) => index.toString()}
           pagingEnabled
@@ -128,7 +158,6 @@ const MusicPlayer = () => {
                   animated: true,
                   index: currentIndex - 1,
                 });
-                setCurrentIndex(currentIndex - 1);
               }
             }}>
             <View
@@ -144,7 +173,7 @@ const MusicPlayer = () => {
           <TouchableOpacity
             title=""
             color="white"
-            onPress={() => setIsPaused(value => !value)}
+            onPress={() => playPause()}
             style={{
               width: 60,
               height: 60,

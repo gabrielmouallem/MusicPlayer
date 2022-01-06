@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MusicPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MusicPlayerTests.m */; };
+		12DC7DCF2787356700244184 /* live_love_shine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12DC7DCA2787356700244184 /* live_love_shine.mp3 */; };
+		12DC7DD02787356700244184 /* a_team.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12DC7DCB2787356700244184 /* a_team.mp3 */; };
+		12DC7DD12787356700244184 /* goosebumps.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12DC7DCC2787356700244184 /* goosebumps.mp3 */; };
+		12DC7DD22787356700244184 /* ric_flair_drip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12DC7DCD2787356700244184 /* ric_flair_drip.mp3 */; };
+		12DC7DD32787356700244184 /* hot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 12DC7DCE2787356700244184 /* hot.mp3 */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -30,6 +35,11 @@
 		00E356EE1AD99517003FC87E /* MusicPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* MusicPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerTests.m; sourceTree = "<group>"; };
+		12DC7DCA2787356700244184 /* live_love_shine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = live_love_shine.mp3; path = ../src/assets/musics/live_love_shine.mp3; sourceTree = "<group>"; };
+		12DC7DCB2787356700244184 /* a_team.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = a_team.mp3; path = ../src/assets/musics/a_team.mp3; sourceTree = "<group>"; };
+		12DC7DCC2787356700244184 /* goosebumps.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = goosebumps.mp3; path = ../src/assets/musics/goosebumps.mp3; sourceTree = "<group>"; };
+		12DC7DCD2787356700244184 /* ric_flair_drip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ric_flair_drip.mp3; path = ../src/assets/musics/ric_flair_drip.mp3; sourceTree = "<group>"; };
+		12DC7DCE2787356700244184 /* hot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hot.mp3; path = ../src/assets/musics/hot.mp3; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MusicPlayer/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MusicPlayer/AppDelegate.m; sourceTree = "<group>"; };
@@ -114,7 +124,6 @@
 				D61E6BE99C9B17475BB98B14 /* Pods-MusicPlayer-MusicPlayerTests.debug.xcconfig */,
 				82442D370495EF7E3A7C0BAB /* Pods-MusicPlayer-MusicPlayerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -128,6 +137,11 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				12DC7DCB2787356700244184 /* a_team.mp3 */,
+				12DC7DCC2787356700244184 /* goosebumps.mp3 */,
+				12DC7DCE2787356700244184 /* hot.mp3 */,
+				12DC7DCA2787356700244184 /* live_love_shine.mp3 */,
+				12DC7DCD2787356700244184 /* ric_flair_drip.mp3 */,
 				13B07FAE1A68108700A75B9A /* MusicPlayer */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MusicPlayerTests */,
@@ -244,7 +258,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				12DC7DD12787356700244184 /* goosebumps.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				12DC7DCF2787356700244184 /* live_love_shine.mp3 in Resources */,
+				12DC7DD02787356700244184 /* a_team.mp3 in Resources */,
+				12DC7DD32787356700244184 /* hot.mp3 in Resources */,
+				12DC7DD22787356700244184 /* ric_flair_drip.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
