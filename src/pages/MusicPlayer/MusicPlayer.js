@@ -2,12 +2,12 @@ import React, {useState, useRef, useEffect, useCallback} from 'react';
 import {
   Animated,
   View,
-  Image,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import {MUSIC_DATA} from '../../data';
+import {formatMMSS} from '../../utils';
 import {
   PlayerContainer,
   Container,
@@ -19,6 +19,14 @@ import {
   MusicTitle,
   Artwork,
   ListContainer,
+  NextButton,
+  PreviusButton,
+  PlayAndPauseImage,
+  PlayAndPauseButton,
+  DurationContainer,
+  DurationText,
+  CurrentTime,
+  TotalDuration,
 } from './MusicPlayer.styles';
 const {width} = Dimensions.get('screen');
 var Sound = require('react-native-sound');
@@ -30,6 +38,8 @@ var sound = new Sound(MUSIC_DATA[0].file, Sound.MAIN_BUNDLE);
 const MusicPlayer = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(-1);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [totalDuration, setTotalDuration] = useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const flatlistRef = useRef();
 
@@ -37,6 +47,7 @@ const MusicPlayer = () => {
     ({_, changed}) => {
       if (changed[0]?.isViewable) {
         sound.release();
+        setCurrentTime(0.9);
         setCurrentIndex(changed[0]?.index);
         sound = new Sound(
           MUSIC_DATA[changed[0]?.index].file,
@@ -48,8 +59,8 @@ const MusicPlayer = () => {
               setIsPaused(item => {
                 if (item) {
                   sound.play(success => {
-                    setIsPaused(false);
                     sound.release();
+                    playNextMusic();
                   });
                 }
                 return item;
@@ -68,6 +79,8 @@ const MusicPlayer = () => {
       if (!value) {
         sound.play(success => {
           if (success) {
+            sound.release();
+            playNextMusic();
             console.log('successfully finished playing');
           } else {
             console.log('playback failed due to audio decoding errors');
@@ -81,22 +94,21 @@ const MusicPlayer = () => {
   };
 
   const playPreviousMusic = () => {
-    if (currentIndex) {
-      flatlistRef.current.scrollToIndex({
-        animated: true,
-        index: currentIndex - 1,
-      });
-    }
+    var index = currentIndex ? currentIndex - 1 : MUSIC_DATA.length - 1;
+    flatlistRef.current.scrollToIndex({
+      animated: true,
+      index: index,
+    });
+    setCurrentIndex(index);
   };
 
   const playNextMusic = () => {
-    if (currentIndex + 1 < MUSIC_DATA.length) {
-      flatlistRef.current.scrollToIndex({
-        animated: true,
-        index: currentIndex + 1,
-      });
-      setCurrentIndex(currentIndex + 1);
-    }
+    var index = currentIndex + 1 < MUSIC_DATA.length ? currentIndex + 1 : 0;
+    flatlistRef.current.scrollToIndex({
+      animated: true,
+      index: index,
+    });
+    setCurrentIndex(index);
   };
 
   useEffect(() => {
@@ -105,6 +117,21 @@ const MusicPlayer = () => {
       sound.release();
     };
   }, []);
+
+  useEffect(() => {
+    let id = false;
+    id = setInterval(() => {
+      setTotalDuration(sound.getDuration());
+      sound.getCurrentTime(seconds => {
+        setCurrentTime(seconds);
+      });
+    }, 100);
+    return () => {
+      if (id) {
+        clearInterval(id);
+      }
+    };
+  }, [currentIndex]);
 
   return (
     <Container>
@@ -165,45 +192,26 @@ const MusicPlayer = () => {
       </ListContainer>
       <MainContainer>
         <DummyProgressBar />
+        <DurationContainer>
+          <CurrentTime>
+            <DurationText>{formatMMSS(currentTime)}</DurationText>
+          </CurrentTime>
+          <TotalDuration>
+            <DurationText>{formatMMSS(totalDuration)}</DurationText>
+          </TotalDuration>
+        </DurationContainer>
         <MainController>
           <TouchableOpacity
             title=""
             color="white"
-            style={{
-              width: 30,
-              height: 30,
-              borderBottomLeftRadius: 50,
-              borderTopLeftRadius: 50,
-            }}
             onPress={() => playPreviousMusic()}>
-            <View
-              style={{
-                backgroundColor: '#b8b8b8',
-                width: 30,
-                height: 30,
-                borderBottomLeftRadius: 50,
-                borderTopLeftRadius: 50,
-              }}
-            />
+            <PreviusButton />
           </TouchableOpacity>
-          <TouchableOpacity
+          <PlayAndPauseButton
             title=""
             color="white"
-            onPress={() => playPause()}
-            style={{
-              width: 60,
-              height: 60,
-              backgroundColor: 'white',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 50,
-            }}>
-            <Image
-              style={{
-                width: 30,
-                height: 30,
-              }}
+            onPress={() => playPause()}>
+            <PlayAndPauseImage
               resizeMode="center"
               source={{
                 uri: isPaused
@@ -211,20 +219,12 @@ const MusicPlayer = () => {
                   : 'https://w7.pngwing.com/pngs/733/88/png-transparent-arrow-computer-icons-font-awesome-play-button-angle-rectangle-triangle.png',
               }}
             />
-          </TouchableOpacity>
+          </PlayAndPauseButton>
           <TouchableOpacity
             title=""
             color="white"
             onPress={() => playNextMusic()}>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                backgroundColor: '#b8b8b8',
-                borderBottomRightRadius: 50,
-                borderTopRightRadius: 50,
-              }}
-            />
+            <NextButton />
           </TouchableOpacity>
         </MainController>
       </MainContainer>

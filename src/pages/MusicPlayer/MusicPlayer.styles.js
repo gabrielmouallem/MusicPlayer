@@ -5,8 +5,8 @@ const {width, height} = Dimensions.get('screen');
 
 export const Container = styled.View`
   flex: 1;
-  width: ${width};
-  height: ${height};
+  width: ${width}px;
+  height: ${height}px;
   background-color: #000;
 `;
 
@@ -17,14 +17,14 @@ export const ListContainer = styled.View`
 `;
 
 export const PlayerContainer = styled.View`
-  width: ${width};
+  width: ${width}px;
   height: 80%;
   justify-content: center;
   align-items: center;
   shadow-color: #000;
   shadow-offset: {width: 0, height: 0};
   shadow-opacity: 0.5;
-  shadow-radius: 20;
+  shadow-radius: 20px;
 `;
 
 export const Artwork = styled.Image`
@@ -33,7 +33,7 @@ export const Artwork = styled.Image`
 `;
 
 export const ControllerWrapper = styled.View`
-  width: ${IMAGE_WIDTH};
+  width: ${IMAGE_WIDTH}px;
   margin-top: 45px;
 `;
 
@@ -71,4 +71,57 @@ export const MainController = styled.View`
   justify-content: space-between;
   align-items: center;
   margin-top: 25px;
+`;
+
+export const PreviusButton = styled.View`
+  width: 30px;
+  height: 30px;
+  background-color: #b8b8b8;
+  border-bottom-left-radius: 50px;
+  border-top-left-radius: 50px;
+`;
+
+export const NextButton = styled.View`
+  width: 30px;
+  height: 30px;
+  background-color: #b8b8b8;
+  border-bottom-right-radius: 50px;
+  border-top-right-radius: 50px;
+`;
+
+export const PlayAndPauseButton = styled.TouchableOpacity`
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+`;
+
+export const PlayAndPauseImage = styled.Image`
+  width: 30px;
+  height: 30px;
+`;
+
+export const DurationContainer = styled.View`
+  width: 85%;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const DurationText = styled.Text`
+  color: lightgray;
+`;
+
+export const CurrentTime = styled.View`
+  width: 50%;
+`;
+
+export const TotalDuration = styled.View`
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `;
