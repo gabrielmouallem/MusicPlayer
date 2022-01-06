@@ -37,7 +37,6 @@ const MusicPlayer = () => {
     ({_, changed}) => {
       if (changed[0]?.isViewable) {
         sound.release();
-        setIsPaused(true);
         setCurrentIndex(changed[0]?.index);
         sound = new Sound(
           MUSIC_DATA[changed[0]?.index].file,
@@ -46,9 +45,14 @@ const MusicPlayer = () => {
             if (error) {
               console.log({error});
             } else {
-              sound.play(success => {
-                setIsPaused(false);
-                sound.release();
+              setIsPaused(item => {
+                if (item) {
+                  sound.play(success => {
+                    setIsPaused(false);
+                    sound.release();
+                  });
+                }
+                return item;
               });
             }
           },
@@ -76,6 +80,25 @@ const MusicPlayer = () => {
     });
   };
 
+  const playPreviousMusic = () => {
+    if (currentIndex) {
+      flatlistRef.current.scrollToIndex({
+        animated: true,
+        index: currentIndex - 1,
+      });
+    }
+  };
+
+  const playNextMusic = () => {
+    if (currentIndex + 1 < MUSIC_DATA.length) {
+      flatlistRef.current.scrollToIndex({
+        animated: true,
+        index: currentIndex + 1,
+      });
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
   useEffect(() => {
     sound.setVolume(1);
     return () => {
@@ -94,7 +117,7 @@ const MusicPlayer = () => {
           ];
           const opacity = scrollX.interpolate({
             inputRange,
-            outputRange: [0, 1, 0],
+            outputRange: [0, 0.8, 0],
           });
           return (
             <Animated.Image
@@ -152,17 +175,10 @@ const MusicPlayer = () => {
               borderBottomLeftRadius: 50,
               borderTopLeftRadius: 50,
             }}
-            onPress={() => {
-              if (currentIndex) {
-                flatlistRef.current.scrollToIndex({
-                  animated: true,
-                  index: currentIndex - 1,
-                });
-              }
-            }}>
+            onPress={() => playPreviousMusic()}>
             <View
               style={{
-                backgroundColor: 'white',
+                backgroundColor: '#b8b8b8',
                 width: 30,
                 height: 30,
                 borderBottomLeftRadius: 50,
@@ -199,20 +215,12 @@ const MusicPlayer = () => {
           <TouchableOpacity
             title=""
             color="white"
-            onPress={() => {
-              if (currentIndex + 1 < MUSIC_DATA.length) {
-                flatlistRef.current.scrollToIndex({
-                  animated: true,
-                  index: currentIndex + 1,
-                });
-                setCurrentIndex(currentIndex + 1);
-              }
-            }}>
+            onPress={() => playNextMusic()}>
             <View
               style={{
                 width: 30,
                 height: 30,
-                backgroundColor: 'white',
+                backgroundColor: '#b8b8b8',
                 borderBottomRightRadius: 50,
                 borderTopRightRadius: 50,
               }}
