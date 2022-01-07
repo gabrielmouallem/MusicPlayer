@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {IMAGE_WIDTH, IMAGE_HEIGHT} from '../../constants';
+import {IMAGE_HEIGHT} from '../../constants';
 import {Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('screen');
 
@@ -28,12 +28,12 @@ export const PlayerContainer = styled.View`
 `;
 
 export const Artwork = styled.Image`
-  width: ${IMAGE_WIDTH}px;
+  width: 88%;
   height: ${IMAGE_HEIGHT}px;
 `;
 
 export const ControllerWrapper = styled.View`
-  width: ${IMAGE_WIDTH}px;
+  width: 85%;
   margin-top: 45px;
 `;
 
@@ -50,7 +50,7 @@ export const MusicArtist = styled.Text`
 `;
 
 export const DummyProgressBar = styled.View`
-  width: ${width * 0.85}px;
+  width: 85%;
   height: 3px;
   margin-top: 25px;
   background-color: white;

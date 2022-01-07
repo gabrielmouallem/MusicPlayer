@@ -58,10 +58,7 @@ const MusicPlayer = () => {
             } else {
               setIsPaused(item => {
                 if (item) {
-                  sound.play(success => {
-                    sound.release();
-                    playNextMusic();
-                  });
+                  playSound();
                 }
                 return item;
               });
@@ -74,18 +71,22 @@ const MusicPlayer = () => {
     [],
   );
 
+  const playSound = () => {
+    sound.play(success => {
+      if (success) {
+        sound.release();
+        playNextMusic();
+        console.log('successfully finished playing');
+      } else {
+        console.log('playback failed due to audio decoding errors');
+      }
+    });
+  };
+
   const playPause = () => {
     setIsPaused(value => {
       if (!value) {
-        sound.play(success => {
-          if (success) {
-            sound.release();
-            playNextMusic();
-            console.log('successfully finished playing');
-          } else {
-            console.log('playback failed due to audio decoding errors');
-          }
-        });
+        playSound();
       } else {
         sound.pause();
       }
