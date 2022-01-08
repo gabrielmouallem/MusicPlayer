@@ -1,10 +1,10 @@
 export const MUSIC_DATA = [
   {
-    file: 'a_team.mp3',
-    title: 'A-Team',
-    artist: 'Travis Scott',
+    file: 'down_below.mp3',
+    title: 'Down Below',
+    artist: 'Roddy Rich',
     artwork:
-      'https://studiosol-a.akamaihd.net/uploadfile/letras/albuns/9/c/d/3/1205751638390895.jpg',
+      'https://e-cdn-images.dzcdn.net/images/cover/d7c386afd4b4f22f7ebb58557ed56576/500x500-000000-80-0-0.jpg',
   },
   {
     file: 'live_love_shine.mp3',
@@ -19,11 +19,11 @@ export const MUSIC_DATA = [
     artwork: 'https://i1.sndcdn.com/artworks-000266910155-5o4wjq-t500x500.jpg',
   },
   {
-    file: 'hot.mp3',
-    title: 'Hot (Remix)',
-    artist: 'Young Thug',
+    file: 'a_team.mp3',
+    title: 'A-Team',
+    artist: 'Travis Scott',
     artwork:
-      'https://direct.rhapsody.com/imageserver/images/alb.431083747/500x500.jpg',
+      'https://studiosol-a.akamaihd.net/uploadfile/letras/albuns/9/c/d/3/1205751638390895.jpg',
   },
   {
     file: 'goosebumps.mp3',
@@ -31,5 +31,26 @@ export const MUSIC_DATA = [
     artist: 'Travis Scott',
     artwork:
       'https://i1.sndcdn.com/artworks-V5R4rGkESTTznCD5-T1yxAg-t500x500.jpg',
+  },
+  {
+    file: 'contact.mp3',
+    title: 'Contact',
+    artist: 'Whiz Khalifa',
+    artwork:
+      'https://direct.rhapsody.com/imageserver/images/alb.457745472/500x500.jpg',
+  },
+  {
+    file: 'hot.mp3',
+    title: 'Hot (Remix)',
+    artist: 'Young Thug',
+    artwork:
+      'https://direct.rhapsody.com/imageserver/images/alb.431083747/500x500.jpg',
+  },
+  {
+    file: 'mask_off.mp3',
+    title: 'Mask Off',
+    artist: 'Future',
+    artwork:
+      'https://e-cdns-images.dzcdn.net/images/cover/5186078c5bd5623ebec9b2753d8aaebe/500x500-000000-80-0-0.jpg',
   },
 ];

@@ -1,18 +1,14 @@
 import React, {useState, useRef, useEffect, useCallback} from 'react';
-import {
-  Animated,
-  View,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import {Animated, TouchableOpacity} from 'react-native';
+import {Slider} from '@miblanchard/react-native-slider';
 import {MUSIC_DATA} from '../../data';
 import {formatMMSS} from '../../utils';
+import ArtworkBackground from './components/ArtworkBackground/ArtworkBackground';
 import {
   PlayerContainer,
   Container,
   ControllerWrapper,
-  DummyProgressBar,
+  SliderContainer,
   MainContainer,
   MainController,
   MusicArtist,
@@ -28,7 +24,6 @@ import {
   CurrentTime,
   TotalDuration,
 } from './MusicPlayer.styles';
-const {width} = Dimensions.get('screen');
 var Sound = require('react-native-sound');
 
 Sound.setCategory('Playback');
@@ -136,32 +131,7 @@ const MusicPlayer = () => {
 
   return (
     <Container>
-      <View style={[StyleSheet.absoluteFillObject]}>
-        {MUSIC_DATA.map(({artwork}, index) => {
-          const inputRange = [
-            (index - 1) * width,
-            index * width,
-            (index + 1) * width,
-          ];
-          const opacity = scrollX.interpolate({
-            inputRange,
-            outputRange: [0, 0.8, 0],
-          });
-          return (
-            <Animated.Image
-              key={`image=${index}`}
-              source={{uri: artwork}}
-              style={[
-                StyleSheet.absoluteFillObject,
-                {
-                  opacity,
-                },
-              ]}
-              blurRadius={50}
-            />
-          );
-        })}
-      </View>
+      <ArtworkBackground scrollX={scrollX} />
       <ListContainer>
         <Animated.FlatList
           ref={flatlistRef}
@@ -192,7 +162,18 @@ const MusicPlayer = () => {
         />
       </ListContainer>
       <MainContainer>
-        <DummyProgressBar />
+        <SliderContainer>
+          <Slider
+            onSlidingComplete={value => {
+              value = value?.[0] ? value?.[0] : 0;
+              setCurrentTime(value);
+              sound.setCurrentTime(value);
+            }}
+            value={currentTime}
+            maximumValue={totalDuration}
+            thumbStyle={{backgroundColor: 'white', width: 12, height: 12}}
+          />
+        </SliderContainer>
         <DurationContainer>
           <CurrentTime>
             <DurationText>{formatMMSS(currentTime)}</DurationText>

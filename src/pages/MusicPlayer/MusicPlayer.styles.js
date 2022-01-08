@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const ListContainer = styled.View`
   width: 100%;
   height: 90%;
-  margin: -5% 0 -60% 0;
+  margin: -5% 0 -57% 0;
 `;
 
 export const PlayerContainer = styled.View`
@@ -49,12 +49,8 @@ export const MusicArtist = styled.Text`
   font-weight: 500;
 `;
 
-export const DummyProgressBar = styled.View`
+export const SliderContainer = styled.View`
   width: 85%;
-  height: 3px;
-  margin-top: 25px;
-  background-color: white;
-  border-radius: 2px;
 `;
 
 export const MainContainer = styled.View`
@@ -106,7 +102,7 @@ export const PlayAndPauseImage = styled.Image`
 
 export const DurationContainer = styled.View`
   width: 85%;
-  margin-top: 2px;
+  margin-top: -10px;
   display: flex;
   flex-direction: row;
 `;
