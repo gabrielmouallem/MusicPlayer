@@ -107,6 +107,12 @@ const MusicPlayer = () => {
     setCurrentIndex(index);
   };
 
+  const onSlidingComplete = useCallback(value => {
+    value = value?.[0] ? value?.[0] : 0;
+    setCurrentTime(value);
+    sound.setCurrentTime(value);
+  }, []);
+
   useEffect(() => {
     sound.setVolume(1);
     return () => {
@@ -164,11 +170,7 @@ const MusicPlayer = () => {
       <MainContainer>
         <SliderContainer>
           <Slider
-            onSlidingComplete={value => {
-              value = value?.[0] ? value?.[0] : 0;
-              setCurrentTime(value);
-              sound.setCurrentTime(value);
-            }}
+            onSlidingComplete={onSlidingComplete}
             value={currentTime}
             maximumValue={totalDuration}
             thumbStyle={{backgroundColor: 'white', width: 12, height: 12}}
