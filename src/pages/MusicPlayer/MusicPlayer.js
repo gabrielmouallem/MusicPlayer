@@ -108,9 +108,11 @@ const MusicPlayer = () => {
   };
 
   const onSlidingComplete = useCallback(value => {
-    value = value?.[0] ? value?.[0] : 0;
-    setCurrentTime(value);
-    sound.setCurrentTime(value);
+    if (sound.isLoaded()) {
+      value = value?.[0] ? value?.[0] : 0;
+      setCurrentTime(value);
+      sound.setCurrentTime(value);
+    }
   }, []);
 
   useEffect(() => {
@@ -123,10 +125,12 @@ const MusicPlayer = () => {
   useEffect(() => {
     let id = false;
     id = setInterval(() => {
-      setTotalDuration(sound.getDuration());
-      sound.getCurrentTime(seconds => {
-        setCurrentTime(seconds);
-      });
+      if (sound.isLoaded()) {
+        setTotalDuration(sound.getDuration());
+        sound.getCurrentTime(seconds => {
+          setCurrentTime(seconds);
+        });
+      }
     }, 100);
     return () => {
       if (id) {
