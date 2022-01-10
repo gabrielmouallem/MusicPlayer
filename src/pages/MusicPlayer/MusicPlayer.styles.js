@@ -52,7 +52,7 @@ export const MusicArtist = styled.Text`
 
 export const SliderContainer = styled.View`
   width: 85%;
-  margin-top: ${Platform.OS === 'ios' ? 0 : 20}px;
+  margin-top: ${Platform.OS === 'ios' ? 0 : 25}px;
 `;
 
 export const MainContainer = styled.View`
