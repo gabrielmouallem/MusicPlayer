@@ -1,3 +1,4 @@
+import {Platform} from 'react-native';
 import styled from 'styled-components/native';
 import {IMAGE_HEIGHT} from '../../constants';
 import {Dimensions} from 'react-native';
@@ -51,6 +52,7 @@ export const MusicArtist = styled.Text`
 
 export const SliderContainer = styled.View`
   width: 85%;
+  margin-top: ${Platform.OS === 'ios' ? 0 : 20}px;
 `;
 
 export const MainContainer = styled.View`
